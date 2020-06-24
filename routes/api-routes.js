@@ -29,7 +29,7 @@ router.post("/api/notes", (req, res) => {
 router.delete("/api/notes/:id", (req, res) => {
   let data = fs.readFileSync("./db/db.json", "utf8");
   data = JSON.parse(data);
-  let id = req.params.id;
+  let id = req.params.id + 1;
   data.splice(id, 1);
   fs.writeFileSync("./db/db.json", JSON.stringify(data, null, 2));
   res.json({ msg: "Successfully deleted the todo" });
