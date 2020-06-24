@@ -1,12 +1,12 @@
 [
   {
-    "title": "first?",
-    "text": "is this first?",
-    "id": 2
+    "title": "First Note",
+    "text": "This is a first test note",
+    "id": 1
   },
   {
-    "title": "firsty?",
-    "text": "is this first now?",
-    "id": 3
+    "title": "Second Note",
+    "text": "This is the second test note",
+    "id": 2
   }
 ]
