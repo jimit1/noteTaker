@@ -20,6 +20,7 @@ router.post("/api/notes", (req, res) => {
   let data = fs.readFileSync("./db/db.json", "utf8");
   data = JSON.parse(data);
   let newText = req.body;
+  newText.id = data.length + 1;
   data.push(newText);
   fs.writeFileSync("./db/db.json", JSON.stringify(data, null, 2));
   res.json({ msg: "Successfully added the todo" });
