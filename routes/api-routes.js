@@ -29,8 +29,12 @@ router.post("/api/notes", (req, res) => {
 router.delete("/api/notes/:id", (req, res) => {
   let data = fs.readFileSync("./db/db.json", "utf8");
   data = JSON.parse(data);
-  let id = req.params.id + 1;
-  data.splice(id, 1);
+  let newId = req.params.id;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].id === newId) {
+      data.splice(i, 1);
+    }
+  }
   fs.writeFileSync("./db/db.json", JSON.stringify(data, null, 2));
   res.json({ msg: "Successfully deleted the todo" });
 });
