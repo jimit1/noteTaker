@@ -31,7 +31,7 @@ router.delete("/api/notes/:id", (req, res) => {
   data = JSON.parse(data);
   let newId = req.params.id;
   data.map((value, index) => {
-    if (value.id == incomingID) {
+    if (value.id == newId) {
       data.splice(index, 1);
     }
   });
