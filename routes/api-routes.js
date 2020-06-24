@@ -2,35 +2,36 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const { isArray } = require("util");
+const { stringify } = require("querystring");
 
 router.get("/api", (req, res) => {
   res.json({ msg: "success" });
 });
 
-router.get("/api/all", (req, res) => {
-  let data = fs.readFileSync("data.json", "utf8");
+//Get all notes
+router.get("/api/notes", (req, res) => {
+  let data = fs.readFileSync("./db/db.json", "utf8");
   data = JSON.parse(data);
   res.json(data);
 });
 
-router.post(`/api/new`, (req, res) => {
-  let { name, type, moves } = req.body;
-  let file = JSON.parse(fs.readFileSync("data.json", "utf-8"));
-  let id = file.pokemon.length + 1;
+//Post a new note
+router.post("/api/notes", (req, res) => {
+  let data = fs.readFileSync("./db/db.json", "utf8");
+  data = JSON.parse(data);
+  let newText = req.body;
+  data.push(newText);
+  fs.writeFileSync("./db/db.json", JSON.stringify(data, null, 2));
+  res.json({ msg: "Successfully added the todo" });
+});
 
-  for (let i = 0; i < file.pokemon.length; i++) {
-    if (req.body.name === file.pokemon.name) {
-      return res.json({ msg: "pokemon already exists" });
-    }
-  }
-
-  if (typeof name === "string" && typeof type === "string" && isArray(moves)) {
-    file.pokemon.push({ name, id, type, moves });
-    fs.writeFileSync("data.json", JSON.stringify(file, null, 2));
-    res.json({ msg: "success" });
-  } else {
-    res.json({ msg: "incorrect format" });
-  }
+router.delete("/api/notes/:id", (req, res) => {
+  let data = fs.readFileSync("./db/db.json", "utf8");
+  data = JSON.parse(data);
+  let id = req.params.id;
+  data.splice(id, 1);
+  fs.writeFileSync("./db/db.json", JSON.stringify(data, null, 2));
+  res.json({ msg: "Successfully deleted the todo" });
 });
 
 module.exports = router;

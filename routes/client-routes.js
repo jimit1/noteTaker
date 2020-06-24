@@ -3,11 +3,11 @@ const router = express.Router();
 const path = require("path");
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/index.html"));
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 router.get("/add", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/add.html"));
+  res.sendFile(path.join(__dirname, "../public/add.html"));
 });
 
 module.exports = router;
