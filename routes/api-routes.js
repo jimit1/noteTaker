@@ -35,6 +35,7 @@ router.delete("/api/notes/:id", (req, res) => {
     }
   });
   fs.writeFileSync("./db/db.json", JSON.stringify(data, null, 2));
+  res.json({ msg: "Successfully deleted the todo" });
 });
 
 module.exports = router;
